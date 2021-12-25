@@ -10,5 +10,10 @@
 using namespace std;
 
 string calcMd5(const string& content);
+string calcBase64(const string& content);
+string calcHex(const string& content);
+string calcSha1(const string& content);
+string calcSha256(const string& content);
+string calcSha512(const string& content);
 
 #endif //QT_CANVAS_MD5_H
