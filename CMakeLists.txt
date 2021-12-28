@@ -11,20 +11,18 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 COMPONENTS Core Quick REQUIRED)
+find_package(Qt6 COMPONENTS Core REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
         src/md5.cc src/md5.h
-        src/wasm/wasm.h
-        qml.qrc)
+        src/wasm/wasm.h)
 
 qt_add_executable(qt-canvas
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES})
 
 target_link_libraries(qt-canvas
-        PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+        PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
-qt_import_qml_plugins(qt-canvas)
 qt_finalize_executable(qt-canvas)
