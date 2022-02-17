@@ -11,6 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include_directories(${PROJECT_SOURCE_DIR})
+
 find_package(Qt6 COMPONENTS Core REQUIRED)
 
 set(PROJECT_SOURCES
@@ -26,3 +28,5 @@ target_link_libraries(qt-canvas
         PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
 qt_finalize_executable(qt-canvas)
+
+add_subdirectory(examples/markdown)
