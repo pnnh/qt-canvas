@@ -1,5 +1,4 @@
-演示画布用法
-演示qt webassembly用法
+演示画布用法 演示qt webassembly用法
 
 # Webassembly功能测试
 
@@ -25,3 +24,9 @@
 -DCMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx}
 -DCMAKE_TOOLCHAIN_FILE:PATH=%{Qt:QT_INSTALL_PREFIX}/lib/cmake/Qt6/qt.toolchain.cmake
 ```
+
+## 其它说明
+
+* 修改了CMakeLists.txt文件，通过条件变量设置在LINUX或MAC下编译main.cc文件，在WebAssembly环境下不编译
+* public目录是一个指向cmake-build-webassembly的软链接，为了方便通过vite演示生成的wasm页面
+

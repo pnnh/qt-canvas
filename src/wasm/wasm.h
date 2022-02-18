@@ -11,7 +11,7 @@
 using namespace std;
 
 float compareBig(int a, int b) {
-  return a > b ? a : b;
+    return a > b ? a : b;
 }
 
 #ifdef __EMSCRIPTEN__
@@ -19,86 +19,90 @@ float compareBig(int a, int b) {
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
+#include "src/markdown/mdtransform.hpp"
 
 
 EMSCRIPTEN_BINDINGS(my_module) {
-  emscripten::function("compareBig", &compareBig);
+    emscripten::function("compareBig", &compareBig);
 }
 
 emscripten::val tryCharPtr() {
-  const char* str = "abc哈哈😁☺";
-  return emscripten::val(str);
+    const char *str = "abc哈哈😁☺";
+    return emscripten::val(str);
 }
 
 emscripten::val tryStdString() {
-  std::string str = "abc哈哈O(∩_∩)O哈哈~🐶efg☺";
-  return emscripten::val(str);
+    std::string str = "abc哈哈O(∩_∩)O哈哈~🐶efg☺";
+    return emscripten::val(str);
 }
 
-emscripten::val tryCalcMd5(const std::string& content) {
-  auto md5Val = calcMd5(content);
-  return emscripten::val(md5Val);
+emscripten::val tryCalcMd5(const std::string &content) {
+    auto md5Val = calcMd5(content);
+    return emscripten::val(md5Val);
 }
 
-emscripten::val tryCalcBase64(const std::string& content) {
-  auto value = calcBase64(content);
-  return emscripten::val(value);
+emscripten::val tryCalcBase64(const std::string &content) {
+    auto value = calcBase64(content);
+    return emscripten::val(value);
 }
 
-emscripten::val tryCalcHex(const std::string& content) {
-  auto value = calcHex(content);
-  return emscripten::val(value);
+emscripten::val tryCalcHex(const std::string &content) {
+    auto value = calcHex(content);
+    return emscripten::val(value);
 }
 
-emscripten::val tryCalcSha1(const std::string& content) {
-  auto value = calcSha1(content);
-  return emscripten::val(value);
+emscripten::val tryCalcSha1(const std::string &content) {
+    auto value = calcSha1(content);
+    return emscripten::val(value);
 }
 
-emscripten::val tryCalcSha256(const std::string& content) {
-  auto value = calcSha256(content);
-  return emscripten::val(value);
+emscripten::val tryCalcSha256(const std::string &content) {
+    auto value = calcSha256(content);
+    return emscripten::val(value);
 }
 
-emscripten::val tryCalcSha512(const std::string& content) {
-  auto value = calcSha512(content);
-  return emscripten::val(value);
+emscripten::val tryCalcSha512(const std::string &content) {
+    auto value = calcSha512(content);
+    return emscripten::val(value);
+}
+
+emscripten::val tryMarkdown2Json(const std::string &content) {
+    auto value = markdown2json(content);
+    return emscripten::val(value);
 }
 
 EMSCRIPTEN_BINDINGS(demo) {
-  emscripten::function("tryCharPtr", &tryCharPtr);
-  emscripten::function("tryStdString", &tryStdString);
-  emscripten::function("tryCalcMd5", &tryCalcMd5);
-  emscripten::function("tryCalcBase64", &tryCalcBase64);
-  emscripten::function("tryCalcHex", &tryCalcHex);
-  emscripten::function("tryCalcSha1", &tryCalcSha1);
-  emscripten::function("tryCalcSha256", &tryCalcSha256);
-  emscripten::function("tryCalcSha512", &tryCalcSha512);
+    emscripten::function("tryCharPtr", &tryCharPtr);
+    emscripten::function("tryStdString", &tryStdString);
+    emscripten::function("tryCalcMd5", &tryCalcMd5);
+    emscripten::function("tryCalcBase64", &tryCalcBase64);
+    emscripten::function("tryCalcHex", &tryCalcHex);
+    emscripten::function("tryCalcSha1", &tryCalcSha1);
+    emscripten::function("tryCalcSha256", &tryCalcSha256);
+    emscripten::function("tryCalcSha512", &tryCalcSha512);
+    emscripten::function("tryMarkdown2Json", &tryMarkdown2Json);
 }
 
 extern "C" {
 
 EMSCRIPTEN_KEEPALIVE int myFunction() {
-  printf("我的函数已被调用\n");
-  return 0;
+    printf("我的函数已被调用\n");
+    return 0;
 }
 
-EMSCRIPTEN_KEEPALIVE int set_data_demo(char* data, int len)
-{
-  printf("我的函数已被调用2\n");
-  //auto str = QString::fromUtf8(data, len);
-  string str = data;
-  //qInfo() << "received:" << str;
-  //QByteArray ba = str.toLocal8Bit();
-  const char *c_str2 = str.c_str();
-  printf("str2: %s", c_str2);
-  return strlen(data);
+EMSCRIPTEN_KEEPALIVE int set_data_demo(char *data, int len) {
+    printf("我的函数已被调用2\n");
+    //auto str = QString::fromUtf8(data, len);
+    string str = data;
+    //qInfo() << "received:" << str;
+    //QByteArray ba = str.toLocal8Bit();
+    const char *c_str2 = str.c_str();
+    printf("str2: %s", c_str2);
+    return strlen(data);
 }
 
 }
 #endif
-
-
 
 
 #endif //QT_CANVAS_WASM_H
