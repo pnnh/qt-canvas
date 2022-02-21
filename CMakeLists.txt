@@ -19,6 +19,7 @@ find_package(Qt6 COMPONENTS Core REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
+        src/stele/stele.cpp src/stele/stele.h
         src/md5.cc src/md5.h
         src/wasm/wasm.h
         ${PROJECT_SOURCE_DIR}/src/markdown/mdtransform.hpp

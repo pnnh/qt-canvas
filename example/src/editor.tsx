@@ -1,6 +1,4 @@
 import React, {useState} from 'react'
-import type {SFEditorModel} from '@pnnh/stele'
-import {SFXEditor} from '@pnnh/stele'
 
 const initialValue = {
     children: [{
@@ -11,13 +9,13 @@ const initialValue = {
 
 export function EditPage(props: {}, state: {}) {
     console.debug('EditPage')
-    const [editorValue, setEditorValue] = useState<SFEditorModel>(initialValue)
+    const [editorValue, setEditorValue] = useState(initialValue)
     const [markdown, setMarkdown] = useState<string>('')
 
     return <div className={'article-edit-page'}>
         <div className={'article-edit'}>
             <div className={'markdown-area'}>
-                <textarea value={markdown} cols={80} rows={20} onChange={(event) => {
+                <textarea value={markdown} cols={80} rows={10} onChange={(event) => {
                     console.debug('Markdown变化', markdown.length)
                     setMarkdown(event.target.value)
                 }}></textarea>
@@ -28,6 +26,16 @@ export function EditPage(props: {}, state: {}) {
                         console.debug('开始转换\n', markdown)
                         const md2json = window.Module.tryMarkdown2Json(markdown)
                         console.debug('转换结果\n', md2json)
+                        const jsonValue = JSON.parse(md2json)
+                        if (jsonValue) {
+//                            setEditorValue(jsonValue)
+                            setEditorValue({
+                                children: [{
+                                    name: 'paragraph',
+                                    children: [{name: 'text', text: 'qqqqq'}]
+                                }]
+                            })
+                        }
                     }}>
                         转换
                     </button>
@@ -35,10 +43,7 @@ export function EditPage(props: {}, state: {}) {
             </div>
             <div className={'body-area'}>
                 <div>
-                    <SFXEditor value={editorValue} onChange={(value) => {
-                        console.debug('onChange222')
-                        setEditorValue(value)
-                    }}/>
+                    编辑器
                 </div>
             </div>
             <div className={'submit-area'}>
