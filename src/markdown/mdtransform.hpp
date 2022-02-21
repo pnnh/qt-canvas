@@ -7,6 +7,6 @@
 
 #include <string>
 
-std::string markdown2json(std::string content);
+std::string markdown2json(const std::string &content);
 
 #endif //QT_CANVAS_MDTRANSFORM_H

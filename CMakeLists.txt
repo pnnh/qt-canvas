@@ -18,14 +18,11 @@ include_directories(${PROJECT_SOURCE_DIR})
 find_package(Qt6 COMPONENTS Core REQUIRED)
 
 set(PROJECT_SOURCES
+        main.cpp
         src/md5.cc src/md5.h
         src/wasm/wasm.h
         ${PROJECT_SOURCE_DIR}/src/markdown/mdtransform.hpp
         ${PROJECT_SOURCE_DIR}/src/markdown/mdtransform.cpp)
-
-if (NOT EMSCRIPTEN)
-    list(APPEND PROJECT_SOURCES main.cpp)
-endif ()
 
 qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION

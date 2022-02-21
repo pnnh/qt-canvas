@@ -101,7 +101,7 @@ MarkdownTransform::MarkdownTransform(const std::string &content) {
             if (tj.second == nullptr || strlen(tj.second) == 0) {
                 continue;
             }
-            if (!root.children.back().multiline) {
+            if (root.children.empty() || !root.children.back().multiline) {
                 elementNode paraNode = paragraphNode;
                 root.children.push_back(paraNode);
             }
@@ -177,7 +177,7 @@ string MarkdownTransform::getJsonString() {
     return strFromObj;
 }
 
-std::string markdown2json(std::string content) {
+std::string markdown2json(const std::string &content) {
     MarkdownTransform transformer(content);
     std::string table = transformer.getJsonString();
     return table;
